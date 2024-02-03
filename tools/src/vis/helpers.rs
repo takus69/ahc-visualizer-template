@@ -81,13 +81,22 @@ pub(super) fn rect<V: Into<svg::node::Value>>(
     width: V,
     height: V,
     fill: Color,
+    stroke: Option<Color>,
 ) -> Rectangle {
-    Rectangle::new()
+    let mut rect = Rectangle::new()
         .set("x", x)
         .set("y", y)
         .set("width", width)
         .set("height", height)
-        .set("fill", String::from(fill))
+        .set("fill", String::from(fill));
+
+    if let Some(stroke) = stroke {
+        rect = rect
+            .set("stroke", String::from(stroke))
+            .set("stroke-width", 1);
+    }
+
+    rect
 }
 
 /// Create a circle.
