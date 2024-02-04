@@ -35,7 +35,7 @@ pub(super) fn visualize(
     let mut doc = init_svg(VIEW_SIZE, VIEW_SIZE, VIEW_PADDING);
 
     // Draw Input
-    let x = 30.0 * (input.n as f64 + 1.0);
+    let x = 30.0 * (input.d as f64 + 1.0);
     doc = doc.add(create_rect(x, 10.0, 60.0, 60.0, Some(get_color(0.5)), None));
 
     todo!("Write code to visualize here.");
@@ -47,12 +47,6 @@ pub(super) fn visualize(
 
     let output = &outputs[option.turn];
     let score = output.calc_score(input)?;
-
-    let y = 10.0 * (output.k as f64 + 1.0);
-    doc = doc.add(with_title(
-        create_circle(200., y, 20., Some("gray".into()), None),
-        "hoge",
-    ));
 
     Ok(VisResult { score, svg: doc })
 }
