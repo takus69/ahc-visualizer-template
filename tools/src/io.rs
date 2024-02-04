@@ -94,6 +94,7 @@ pub(super) fn interact(
 ) -> Result<i64, anyhow::Error> {
     // Write input to stdin (without secret members)
     todo!("Write code to write input to stdin here.");
+    write!(stdin, "{}", input)?;
 
     stdin.flush()?;
 
