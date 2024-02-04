@@ -4,6 +4,7 @@ pub mod vis;
 use anyhow::Context as _;
 use io::Input;
 use io::Output;
+use std::io::Read as _;
 use vis::{VisOption, VisResult};
 
 /// Parse input
@@ -46,4 +47,26 @@ pub fn visualize(
     option: Option<VisOption>,
 ) -> anyhow::Result<VisResult> {
     vis::visualize(input, outputs, option).context("Failed to visualize")
+}
+
+/// Interact with the child process and calculate score
+pub fn interact(process: &mut std::process::Child) -> anyhow::Result<i64> {
+    let mut stdin_str = String::new();
+    std::io::stdin().read_to_string(&mut stdin_str)?;
+    let input = parse_input(&stdin_str)?;
+
+    let stdin = std::io::BufWriter::new(
+        process
+            .stdin
+            .take()
+            .context("Failed to take stdin of child process")?,
+    );
+    let stdout = std::io::BufReader::new(
+        process
+            .stdout
+            .take()
+            .context("Failed to take stdout of child process")?,
+    );
+
+    io::interact(process, stdin, stdout, input).context("Failed to judge")
 }

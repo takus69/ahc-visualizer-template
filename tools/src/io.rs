@@ -3,7 +3,12 @@ mod helpers;
 use helpers::read;
 use rand::{prelude::*, SeedableRng};
 use rand_chacha::ChaCha20Rng;
-use std::{fmt::Display, iter::Peekable};
+use std::{
+    fmt::Display,
+    io::{BufReader, BufWriter, Write as _},
+    iter::Peekable,
+    process::{ChildStdin, ChildStdout},
+};
 
 /// **(CUSTOMIZE IT!)** Option for generating Input
 #[derive(Debug, Clone, Copy)]
@@ -78,4 +83,37 @@ impl Output {
 
         Ok(score)
     }
+}
+
+/// **(CUSTOMIZE IT!)** Interactive judge code
+pub(super) fn interact(
+    process: &mut std::process::Child,
+    mut stdin: BufWriter<ChildStdin>,
+    mut stdout: BufReader<ChildStdout>,
+    input: Input,
+) -> Result<i64, anyhow::Error> {
+    // Write input to stdin (without secret members)
+    todo!("Write code to write input to stdin here.");
+
+    stdin.flush()?;
+
+    // Interact with the child process
+    let query_count = 100;
+
+    for q in 0..query_count {
+        let out = helpers::read_line(&mut stdout)?;
+        let mut tokens = out.split_whitespace();
+
+        todo!("Write code to respond to query here.");
+
+        writeln!(stdin, "This is the response to query {}", q)?;
+        stdin.flush()?;
+    }
+
+    // Calculate score
+    let output: Output = todo!("Write code to generate Output here.");
+    let score = output.calc_score(&input)?;
+
+    process.wait()?;
+    Ok(score)
 }

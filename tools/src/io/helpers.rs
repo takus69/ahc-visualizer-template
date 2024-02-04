@@ -1,4 +1,9 @@
-use std::{fmt::Display, str::FromStr};
+use std::{
+    fmt::Display,
+    io::{BufRead as _, BufReader},
+    process::ChildStdout,
+    str::FromStr,
+};
 use thiserror::Error;
 
 /// Read a token and parse it into a value.
@@ -23,6 +28,29 @@ pub(super) fn read<T: Copy + PartialOrd + Display + FromStr>(
     }
 }
 
+pub(super) fn read_line(
+    stdout: &mut BufReader<ChildStdout>,
+) -> Result<String, ChildProcessIOError> {
+    loop {
+        let mut out = String::new();
+        let bytes = stdout.read_line(&mut out);
+
+        if bytes.unwrap_or(0) == 0 {
+            return Err(ChildProcessIOError::UnexpectedEOF);
+        }
+
+        print!("{}", out);
+
+        let v = out.trim();
+
+        if v.len() == 0 || v.starts_with("#") {
+            continue;
+        }
+
+        return Ok(v.to_owned());
+    }
+}
+
 #[derive(Debug, Error)]
 pub enum TokenParseError<T: Display> {
     #[error("Out of range: {0}")]
@@ -30,5 +58,11 @@ pub enum TokenParseError<T: Display> {
     #[error("Parse error: {0}")]
     ParseError(String),
     #[error("Unexpected EOF")]
+    UnexpectedEOF,
+}
+
+#[derive(Debug, Error)]
+pub enum ChildProcessIOError {
+    #[error("Your program has terminated unexpectedly")]
     UnexpectedEOF,
 }
