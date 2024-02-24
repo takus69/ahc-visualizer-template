@@ -11,7 +11,7 @@ export default function middleware(req) {
     const basicAuth = authorizationHeader.split(' ')[1];
     const [user, password] = atob(basicAuth).toString().split(':');
 
-    if (user === 'USER' && password === 'PASSWORD') {
+    if (user === 'terry_u16' && password === 'hibiki-chan') {
       return next();
     }
   }
