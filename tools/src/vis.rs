@@ -126,6 +126,13 @@ fn draw_lines(output: &Output, mut doc: Document) -> Document {
     let scale = 280.0 / 1e4;
 
     for &(x1, y1, x2, y2) in &output.cut {
+        let dx = x2 - x1;
+        let dy = y2 - y1;
+        let x1 = x1 - dx * 100;
+        let y1 = y1 - dy * 100;
+        let x2 = x2 + dx * 100;
+        let y2 = y2 + dy * 100;
+
         let x1 = center_x + x1 as f64 * scale;
         let y1 = center_y + y1 as f64 * scale;
         let x2 = center_x + x2 as f64 * scale;
