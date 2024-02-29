@@ -48,6 +48,7 @@ const InputOutput: FC<InputOutputProps> = ({
           <br />
           <input
             type="number"
+            id="seed"
             value={visualizerSettingInfo.seed}
             min={'0'}
             max={'18446744073709551615'}
@@ -95,6 +96,7 @@ const InputOutput: FC<InputOutputProps> = ({
           Output: <br />
           <textarea
             className={styles.textArea} //eslint-disable-line
+            id="output"
             rows={4}
             value={visualizerSettingInfo.output}
             onChange={onChangeOutput}
