@@ -49,5 +49,5 @@ fn try_get_max_turn(input: &str, output: &str) -> anyhow::Result<usize> {
     let input = parse_input(&input)?;
     let outputs = parse_outputs(&input, &output)?;
 
-    Ok(outputs.len().saturating_sub(1))
+    Ok(outputs.len())
 }
