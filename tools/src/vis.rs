@@ -67,7 +67,7 @@ pub(super) fn visualize(
 
     // Draw Output
     if option.turn == 0 {
-        return Ok(VisResult { score: (4*input.n*input.n) as i64, svg: doc });
+        return Ok(VisResult { score: (4*input.n*input.n - input.n*first_x_cnt) as i64, svg: doc });
     }
 
     let mut c = input.c.clone();
@@ -129,7 +129,7 @@ pub(super) fn visualize(
     let score = if (first_x_cnt-x_cnt) == 0 && o_cnt == 0 {
         (8*input.n*input.n - option.turn) as i64
     } else {
-        (4*input.n*input.n - input.n*(first_x_cnt-x_cnt)*o_cnt) as i64
+        (4*input.n*input.n - input.n*(first_x_cnt-x_cnt+o_cnt)) as i64
     };
 
     Ok(VisResult { score, svg: doc })
