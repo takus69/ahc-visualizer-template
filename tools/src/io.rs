@@ -25,14 +25,14 @@ impl Input {
         // You shold generate u64 first and then convert it to usize because the size of usize is platform dependent.
         let n = rng.gen_range(10..=15u64) as usize;
 
-        todo!("Write code to generate Input here.");
+        // todo!("Write code to generate Input here.");
 
         Self { n }
     }
 
     /// **(CUSTOMIZE IT!)** Parse Input from tokens
     pub(super) fn parse<'a>(tokens: &mut impl Iterator<Item = &'a str>) -> anyhow::Result<Self> {
-        let n = read(tokens.next(), 0, 10)?;
+        let n = read(tokens.next(), 10, 15)?;
 
         todo!("Write code to parse Input here.");
 

@@ -28,6 +28,7 @@
   "devDependencies": {
     "@types/eslint": "~8.56.2",
     "@types/eslint-config-prettier": "~6.11.3",
+    "@types/eslint-plugin-jsx-a11y": "~6.10.0",
     "@types/gif.js": "~0.2.5",
     "@types/lint-staged": "~13.2.2",
     "@types/prettier": "~3.0.0",
