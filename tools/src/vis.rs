@@ -29,7 +29,7 @@ pub(super) fn visualize(
     option: Option<VisOption>,
 ) -> anyhow::Result<VisResult> {
     let option = option.unwrap_or(VisOption {
-        turn: outputs.len() - 1,
+        turn: outputs.len(),
     });
 
     let mut doc = init_svg(VIEW_SIZE, VIEW_SIZE, VIEW_PADDING);
