@@ -35,15 +35,32 @@ pub(super) fn visualize(
     let mut doc = init_svg(VIEW_SIZE, VIEW_SIZE, VIEW_PADDING);
 
     // Draw Input
-    fn drow_board(doc: Document, input: &Input) -> Document {
+    fn drow_board(doc: Document, input: &Input, output: &Output) -> Document {
         let mut doc = doc;
+        let d = VIEW_SIZE / (input.n+1) as f64;
         doc = doc.add(create_rect(0.0, 0.0, VIEW_SIZE, VIEW_SIZE, Some("white".into()), Some(Stroke{0: "black".into(), 1: 1.0})));
-        let d = VIEW_SIZE / input.n as f64;
         for i in 0..input.n {
             for j in 0..input.n {
+                let color = match output.d {
+                    'L' | 'R' => {
+                        if i == output.p {
+                            Some("red".into())
+                        } else {
+                            Some("white".into())
+                        }
+                    },
+                    'U' | 'D' => {
+                        if j == output.p {
+                            Some("red".into())
+                        } else {
+                            Some("white".into())
+                        }
+                    },
+                    _ => {Some("white".into())},
+                };
                 let x = j as f64 * d;
                 let y = i as f64 * d;
-                doc = doc.add(create_rect(x, y, d, d, Some("white".into()), Some(Stroke{0: "black".into(), 1: 1.0})));
+                doc = doc.add(create_rect(x, y, d, d, color, Some(Stroke{0: "black".into(), 1: 1.0})));
                 if input.c[i][j] == 'o' {
                     doc = doc.add(create_text(x+d/2.0, y+d, 30.0, "o"));
                 } else if input.c[i][j] == 'x' {
@@ -51,10 +68,23 @@ pub(super) fn visualize(
                 }
             }
         }
+        match output.d {
+            'L' | 'R' => {
+                let x = VIEW_SIZE-d;
+                let y = output.p as f64 * d;
+                doc = doc.add(create_text(x+d/2.0, y+d, 30.0, output.d));
+            },
+            'U' | 'D' => {
+                let y = VIEW_SIZE-d;
+                let x = output.p as f64 * d;
+                doc = doc.add(create_text(x+d/2.0, y+d, 30.0, output.d));
+            },
+            _ => {},
+        }
 
         doc
     }
-    doc = drow_board(doc, input);
+    doc = drow_board(doc, input, &Output{ d: 'X', p: input.n });
     let mut first_x_cnt = 0;
     for i in 0..input.n {
         for j in 0..input.n {
@@ -125,7 +155,7 @@ pub(super) fn visualize(
         }
     }
     let input = Input { n: input.n, c };
-    doc = drow_board(doc, &input);
+    doc = drow_board(doc, &input, &outputs[option.turn-1]);
     let score = if (first_x_cnt-x_cnt) == 0 && o_cnt == 0 {
         (8*input.n*input.n - option.turn) as i64
     } else {
