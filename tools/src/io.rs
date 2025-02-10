@@ -170,8 +170,8 @@ impl Output {
                         'D' => { if i==19 || v[i][j]=='1' { (i, j) } else { (i+1, j) }},
                         _ => { (i, j) },
                     };
-                    probs[t+1][i2][j2] += probs[t][i][j] * input.p;
-                    probs[t+1][i][j] += probs[t][i][j] * (1.0-input.p);
+                    probs[t+1][i2][j2] += probs[t][i][j] * (1.0-input.p);
+                    probs[t+1][i][j] += probs[t][i][j] * input.p;
                 }
             }
         }
@@ -184,14 +184,13 @@ impl Output {
         score = (score*250000.0).round();
 
         // 確率をターンで蓄積
-        /*
         for t in 0..self.s.len() {
             for i in 0..20 {
                 for j in 0..20 {
-                    probs[t+1][i][j] += probs[t][i][j];
+                    // probs[t+1][i][j] += probs[t][i][j] * (t as f64 / (t+1) as f64);
                 }
             }
-        }*/
+        }
 
         Ok((score, probs))
     }
