@@ -33,7 +33,7 @@ pub fn parse_outputs(input: &Input, s: &str) -> anyhow::Result<Vec<Output>> {
 }
 
 /// Calculate score
-pub fn calc_score(input: &Input, output: &Output) -> anyhow::Result<(i64, Vec<Vec<Vec<f64>>>)> {
+pub fn calc_score(input: &Input, output: &Output) -> anyhow::Result<(f64, Vec<Vec<Vec<f64>>>)> {
     output
         .calc_score(input)
         .context("Failed to calculate score")

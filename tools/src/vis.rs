@@ -15,7 +15,7 @@ pub struct VisOption {
 /// **(CUSTOMIZE IT!)** Result of visualization
 #[derive(Debug, Clone)]
 pub struct VisResult {
-    pub score: i64,
+    pub score: f64,
     pub svg: Document,
 }
 
@@ -105,7 +105,7 @@ pub(super) fn visualize(
 
     // Draw Output
     if outputs.len() == 0 {
-        return Ok(VisResult { score: 0, svg: doc });
+        return Ok(VisResult { score: 0.0, svg: doc });
     }
 
     let output = &outputs[0];

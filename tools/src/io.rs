@@ -144,9 +144,7 @@ impl Output {
     }
 
     /// **(CUSTOMIZE IT!)** Calculate score
-    pub(super) fn calc_score(&self, input: &Input) -> anyhow::Result<(i64, Vec<Vec<Vec<f64>>>)> {
-        let score = 0;
-
+    pub(super) fn calc_score(&self, input: &Input) -> anyhow::Result<(f64, Vec<Vec<Vec<f64>>>)> {
         let s_chars = self.s.chars().collect::<Vec<char>>();
         let mut probs: Vec<Vec<Vec<f64>>> = vec![vec![vec![0.0; 20]; 20]; self.s.len()+1];
         probs[0][input.si][input.sj] = 1.0;
@@ -158,10 +156,13 @@ impl Output {
         for vi in input.v.iter() {
             v.push(vi.chars().collect());
         }
+
+        // 各ターンの存在確率を算出
         for t in 0..self.s.len() {
             let dir = s_chars[t];
             for i in 0..20 {
                 for j in 0..20 {
+                    if i == input.ti && j == input.tj { continue; }  // ゴールに到着したら終了(次の確率算出に使用しない)
                     let (i2, j2) = match dir {
                         'L' => { if j==0 || h[i][j-1]=='1' { (i, j) } else { (i, j-1) }},
                         'R' => { if j==19 || h[i][j]=='1' { (i, j) } else { (i, j+1) }},
@@ -174,6 +175,23 @@ impl Output {
                 }
             }
         }
+
+        // スコア算出
+        let mut score = 0.0;
+        for t in 1..=self.s.len() {
+            score += (401 - t) as f64 * probs[t][input.ti][input.tj];
+        }
+        score = (score*250000.0).round();
+
+        // 確率をターンで蓄積
+        /*
+        for t in 0..self.s.len() {
+            for i in 0..20 {
+                for j in 0..20 {
+                    probs[t+1][i][j] += probs[t][i][j];
+                }
+            }
+        }*/
 
         Ok((score, probs))
     }

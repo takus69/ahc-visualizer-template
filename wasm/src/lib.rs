@@ -10,7 +10,7 @@ pub fn gen(seed: i32) -> String {
 
 #[wasm_bindgen(getter_with_clone)]
 pub struct Ret {
-    pub score: i64,
+    pub score: f64,
     pub err: String,
     pub svg: String,
 }
@@ -21,7 +21,7 @@ pub fn vis(input: String, output: String, turn: usize) -> Ret {
     match try_vis(&input, &output, option) {
         Ok(ret) => ret,
         Err(err) => Ret {
-            score: 0,
+            score: 0.0,
             err: format!("{:#}", err),
             svg: "".to_string(),
         },
