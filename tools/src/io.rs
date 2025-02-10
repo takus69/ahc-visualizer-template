@@ -29,12 +29,11 @@ impl Input {
         let mut rng = ChaCha20Rng::seed_from_u64(option.seed);
 
         // You shold generate u64 first and then convert it to usize because the size of usize is platform dependent.
-        let si = rng.gen_range(0..=4u64) as usize;
-        let sj = rng.gen_range(0..=4u64) as usize;
-        let ti = rng.gen_range(15..=19u64) as usize;
-        let tj = rng.gen_range(15..=19u64) as usize;
-        let tj = rng.gen_range(15..=19u64) as usize;
-        let p = rng.gen_range(10..=50u64) as usize;
+        let si = 1;  // rng.gen_range(0..=4u64) as usize;
+        let sj = 2;  // rng.gen_range(0..=4u64) as usize;
+        let ti = 19;  // rng.gen_range(15..=19u64) as usize;
+        let tj = 16;  // rng.gen_range(15..=19u64) as usize;
+        let p = 10; // rng.gen_range(10..=50u64) as usize;
         let p = p as f64 / 100.0;
 
         let mut h = vec![

@@ -56,7 +56,9 @@ pub(super) fn visualize(
                 let color = get_color(p/max_p);
                 let x = j as f64 * d;
                 let y = i as f64 * d;
-                doc = doc.add(create_rect(x, y, d, d, Some(color), Some(Stroke{0: "black".into(), 1: 0.0})));
+                let rect = create_rect(x, y, d, d, Some(color), Some(Stroke{0: "black".into(), 1: 0.0}));
+                let group = with_title(rect, format!("({}, {}), {:.2}%", i, j, p));
+                doc = doc.add(group);
             }
         }
 
@@ -110,6 +112,11 @@ pub(super) fn visualize(
 
     let output = &outputs[0];
     let (score, probs) = output.calc_score(input)?;
+    let mut score = 0.0;
+    for t in 1..=option.turn {
+        score += (401 - t) as f64 * probs[t][input.ti][input.tj];
+    }
+    score = (score*250000.0).round();
     doc = drow(doc, &input, &probs[option.turn]);
 
     Ok(VisResult { score, svg: doc })
