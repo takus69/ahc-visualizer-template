@@ -25,7 +25,7 @@ impl Input {
         // You shold generate u64 first and then convert it to usize because the size of usize is platform dependent.
         let n = rng.gen_range(10..=15u64) as usize;
 
-        // todo!("Write code to generate Input here.");
+        todo!("Write code to generate Input here.");
 
         Self { n }
     }

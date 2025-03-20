@@ -34,7 +34,8 @@ npm install -g yarn
 初回実行時には以下のコマンドを実行してください:
 ```
 yarn  # nodeのモジュールのインストール
-cd wasm && wasm-pack build --target web --out-dir ../public/wasm && cd .. # Rustのwasm化
+cd wasm
+wasm-pack build --target web --out-dir ../public/wasm  # Rustのwasm化
 yarn dev # サーバーの実行
 ```
 これでローカルにwebアプリがホスティングされるので、コンソール上に表示されるURLにアクセスしてください。テンプレートの状態のビジュアライザが表示されると思います。
