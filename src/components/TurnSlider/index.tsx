@@ -46,7 +46,7 @@ const TurnSlider: FC<TurnSliderProps> = ({
   const startSlider = useCallback(() => {
     setSliderContent('■');
     const tickMilliSec =
-      (1000 * 300) / visualizerSettingInfo.maxTurn / sliderSpeed; // 1000 / sliderSpeed;
+      (1000 * 30) / visualizerSettingInfo.maxTurn / sliderSpeed;
     const id = setInterval(incrementTurn, tickMilliSec);
     setIntervalId(id);
   }, [
