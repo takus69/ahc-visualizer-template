@@ -65,3 +65,32 @@ Rustの関数をJavaScriptから呼び出せるようにwasm化するとビジ�
     - n: 10～15の値: 緑の四角の横位置を決める
   - output
     - k: 灰色の丸の縦位置を決める。スペース区切りで出力し、値の数がturn数
+- 図形の関数
+  - create_react: 長方形
+    - x, y: 左上の座標
+    - width, height: 幅と高さ
+    - fill: 長方形内の色(塗りつぶし), OptionでNoneだと黒
+    - stroke: 枠線, OptionでNoneだと枠線なし
+  - create_circle: 円
+    - x, y: 中心の座標
+    - r: 半径
+    - fill, stroke: 長方形と同じ
+  - create_line: 直線
+    - x1, y1, x2, y2: 直線の端点
+    - stroke_width: 線の幅
+    - color: 線の色
+  - create_text: テキスト
+    - x, y: テキストの左上の座標(左上揃え)
+    - size: フォントサイズ
+    - s: テキストの内容
+  - with_title: オブジェクトにタイトルを追加(マウスオーバーで表示)
+    - node: 各createの関数の結果
+    - title: 表示するタイトル
+  - color: 色
+    - RGB: RGBで色を指定
+    - Name: 名前で色を指定(Fromトレイとを実装しており、intoで変換可能)
+  - get_coler: 0.0～1.0で色を取得
+    - 0.0が青で、0.5が緑、1.0が赤でグラデーションを作りやすい
+  - stroke: 線のプロパティ
+    - 0: 色
+    - 1: 線の幅

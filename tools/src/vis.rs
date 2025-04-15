@@ -44,6 +44,16 @@ pub(super) fn visualize(
         let x = 30.0 * (input.n as f64 + 1.0);
         doc = doc.add(create_rect(x, 10.0, 60.0, 60.0, Some(get_color(0.5)), None));
 
+        // 色
+        for i in 0..=100 {
+            let x = i as f64 * 5.0;
+            let c = i as f64 / 100.0;
+            doc = doc.add(with_title(
+                create_rect(x, 100.0, 5.0, 5.0, Some(get_color(c)), None),
+                format!("color: {}", c),
+            ));
+        }
+
         doc
     }
 
@@ -61,11 +71,18 @@ pub(super) fn visualize(
 
     let score = output.calc_score(input)?;
 
+    // outputの描画例
+    // 円
     let y = 10.0 * (output.k as f64 + 1.0);
     doc = doc.add(with_title(
         create_circle(200., y, 20., Some("gray".into()), None),
         "hoge",
     ));
+    // 直線
+    let x = 30.0 * (input.n as f64 + 1.0);
+    doc = doc.add(create_line(200., y, x, 10., 1.0, "red".into()));
+    // テキスト
+    doc = doc.add(create_text(x, 10.0, 20.0,format!("{}", output.k)));
 
     Ok(VisResult { score, svg: doc, cmd: output.to_string() })
 }

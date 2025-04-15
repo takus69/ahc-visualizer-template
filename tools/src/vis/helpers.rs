@@ -167,7 +167,8 @@ pub(super) fn create_text<V: Into<svg::node::Value>, S: Into<String>>(
         .set("x", x)
         .set("y", y)
         .set("font-size", size)
-        .set("text-anchor", "middle")
+        .set("text-anchor", "start")
+        .set("dominant-baseline", "hanging")
         .add(svg::node::Text::new(s))
 }
 
