@@ -9,6 +9,8 @@ export function __wbg_get_ret_err(a: number, b: number): void;
 export function __wbg_set_ret_err(a: number, b: number, c: number): void;
 export function __wbg_get_ret_svg(a: number, b: number): void;
 export function __wbg_set_ret_svg(a: number, b: number, c: number): void;
+export function __wbg_get_ret_cmd(a: number, b: number): void;
+export function __wbg_set_ret_cmd(a: number, b: number, c: number): void;
 export function vis(a: number, b: number, c: number, d: number, e: number): number;
 export function get_max_turn(a: number, b: number, c: number, d: number): number;
 export function __wbindgen_add_to_stack_pointer(a: number): number;

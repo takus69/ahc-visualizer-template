@@ -23,6 +23,7 @@ const AHCLikeVisualizer: FC = () => {
     svgString: '',
     err: '',
     score: 0,
+    cmd: '',
   });
 
   useEffect(() => {
@@ -67,6 +68,7 @@ const AHCLikeVisualizer: FC = () => {
         svgString: ret.svg,
         err: ret.err,
         score: Number(ret.score),
+        cmd: ret.cmd,
       });
     } catch (e) {
       // visが失敗した場合にはエラーを出力する
@@ -79,6 +81,7 @@ const AHCLikeVisualizer: FC = () => {
         svgString: 'invalid input or output',
         err: msg,
         score: 0,
+        cmd: '',
       });
     }
   }, [
@@ -106,6 +109,7 @@ const AHCLikeVisualizer: FC = () => {
         svgString={visualizerResult.svgString}
         err={visualizerResult.err}
         score={visualizerResult.score}
+        cmd={visualizerResult.cmd}
       ></SvgViewer>
     </>
   );

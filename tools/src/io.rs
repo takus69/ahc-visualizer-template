@@ -25,7 +25,7 @@ impl Input {
         // You shold generate u64 first and then convert it to usize because the size of usize is platform dependent.
         let n = rng.gen_range(10..=15u64) as usize;
 
-        todo!("Write code to generate Input here.");
+        // todo!("Write code to generate Input here.");
 
         Self { n }
     }
@@ -34,7 +34,7 @@ impl Input {
     pub(super) fn parse<'a>(tokens: &mut impl Iterator<Item = &'a str>) -> anyhow::Result<Self> {
         let n = read(tokens.next(), 10, 15)?;
 
-        todo!("Write code to parse Input here.");
+        // todo!("Write code to parse Input here.");
 
         Ok(Self { n })
     }
@@ -45,7 +45,7 @@ impl Display for Input {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         writeln!(f, "{}", self.n)?;
 
-        todo!("Write code to format Input here.");
+        // todo!("Write code to format Input here.");
 
         Ok(())
     }
@@ -65,7 +65,7 @@ impl Output {
     ) -> anyhow::Result<Self> {
         let k = read(tokens.next(), 0, 1000)?;
 
-        todo!("Write code to parse Output here.");
+        // todo!("Write code to parse Output here.");
 
         Ok(Self { k })
     }
@@ -74,8 +74,19 @@ impl Output {
     pub(super) fn calc_score(&self, input: &Input) -> anyhow::Result<i64> {
         let score = 100;
 
-        todo!("Write code to calculate score here.");
+        // todo!("Write code to calculate score here.");
 
         Ok(score)
+    }
+}
+
+impl Display for Output {
+    /// **(CUSTOMIZE IT!)** Format Input as string
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        writeln!(f, "{}", self.k)?;
+
+        // todo!("Write code to format Output here.");
+
+        Ok(())
     }
 }

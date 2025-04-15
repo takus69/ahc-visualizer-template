@@ -13,6 +13,7 @@ pub struct Ret {
     pub score: i64,
     pub err: String,
     pub svg: String,
+    pub cmd: String,
 }
 
 #[wasm_bindgen]
@@ -24,6 +25,7 @@ pub fn vis(input: String, output: String, turn: usize) -> Ret {
             score: 0,
             err: format!("{:#}", err),
             svg: "".to_string(),
+            cmd: "".to_string(),
         },
     }
 }
@@ -37,6 +39,7 @@ fn try_vis(input: &str, output: &str, option: VisOption) -> anyhow::Result<Ret> 
         score: vis_result.score,
         err: "".to_string(),
         svg: vis_result.svg.to_string(),
+        cmd: vis_result.cmd,
     })
 }
 

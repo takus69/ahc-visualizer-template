@@ -17,6 +17,7 @@ pub struct VisOption {
 pub struct VisResult {
     pub score: i64,
     pub svg: Document,
+    pub cmd: String,
 }
 
 const VIEW_SIZE: f64 = 600.0;
@@ -43,30 +44,16 @@ pub(super) fn visualize(
         let x = 30.0 * (input.n as f64 + 1.0);
         doc = doc.add(create_rect(x, 10.0, 60.0, 60.0, Some(get_color(0.5)), None));
 
-        // output
-        let output_width= 200.0;
-        let output_height = 100.0;
-        let font_size = 20.0;
-        let output_x = VIEW_SIZE + VIEW_PADDING + output_width / 2.0;
-        let output_y = VIEW_PADDING + font_size;
-        doc = doc.add(create_rect(VIEW_SIZE+VIEW_PADDING, 0.0, output_width, output_height, Some("white".into()), Some(Stroke{0: "black".into(), 1: 1.0})));
-        if let Some(output) = output {
-            let output_text = format!("{}", output.k);
-            doc = doc.add(create_text(output_x, output_y, font_size, output_text));
-        } else {
-            return doc;
-        };
-
         doc
     }
 
     doc = drow(doc, input, None);
 
-    todo!("Write code to visualize here.");
+    // todo!("Write code to visualize here.");
 
     // Draw Output
     if option.turn == 0 {
-        return Ok(VisResult { score: 0, svg: doc });
+        return Ok(VisResult { score: 0, svg: doc, cmd: String::new() });
     }
 
     let output = &outputs[option.turn-1];
@@ -80,5 +67,5 @@ pub(super) fn visualize(
         "hoge",
     ));
 
-    Ok(VisResult { score, svg: doc })
+    Ok(VisResult { score, svg: doc, cmd: output.to_string() })
 }

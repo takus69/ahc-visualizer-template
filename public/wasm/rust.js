@@ -220,6 +220,33 @@ export class Ret {
         const len0 = WASM_VECTOR_LEN;
         wasm.__wbg_set_ret_svg(this.__wbg_ptr, ptr0, len0);
     }
+    /**
+    * @returns {string}
+    */
+    get cmd() {
+        let deferred1_0;
+        let deferred1_1;
+        try {
+            const retptr = wasm.__wbindgen_add_to_stack_pointer(-16);
+            wasm.__wbg_get_ret_cmd(retptr, this.__wbg_ptr);
+            var r0 = getInt32Memory0()[retptr / 4 + 0];
+            var r1 = getInt32Memory0()[retptr / 4 + 1];
+            deferred1_0 = r0;
+            deferred1_1 = r1;
+            return getStringFromWasm0(r0, r1);
+        } finally {
+            wasm.__wbindgen_add_to_stack_pointer(16);
+            wasm.__wbindgen_free(deferred1_0, deferred1_1, 1);
+        }
+    }
+    /**
+    * @param {string} arg0
+    */
+    set cmd(arg0) {
+        const ptr0 = passStringToWasm0(arg0, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+        const len0 = WASM_VECTOR_LEN;
+        wasm.__wbg_set_ret_cmd(this.__wbg_ptr, ptr0, len0);
+    }
 }
 
 async function __wbg_load(module, imports) {
