@@ -24,6 +24,12 @@ export class Ret {
   free(): void;
 /**
 */
+  after_comment: string;
+/**
+*/
+  before_comment: string;
+/**
+*/
   cmd: string;
 /**
 */
@@ -50,6 +56,10 @@ export interface InitOutput {
   readonly __wbg_set_ret_svg: (a: number, b: number, c: number) => void;
   readonly __wbg_get_ret_cmd: (a: number, b: number) => void;
   readonly __wbg_set_ret_cmd: (a: number, b: number, c: number) => void;
+  readonly __wbg_get_ret_before_comment: (a: number, b: number) => void;
+  readonly __wbg_set_ret_before_comment: (a: number, b: number, c: number) => void;
+  readonly __wbg_get_ret_after_comment: (a: number, b: number) => void;
+  readonly __wbg_set_ret_after_comment: (a: number, b: number, c: number) => void;
   readonly vis: (a: number, b: number, c: number, d: number, e: number) => number;
   readonly get_max_turn: (a: number, b: number, c: number, d: number) => number;
   readonly __wbindgen_add_to_stack_pointer: (a: number) => number;

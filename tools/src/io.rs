@@ -61,13 +61,22 @@ impl Output {
     /// **(CUSTOMIZE IT!)** Parse Output from tokens
     pub(super) fn parse<'a>(
         input: &Input,
-        tokens: &mut Peekable<impl Iterator<Item = &'a str>>,
-    ) -> anyhow::Result<Self> {
-        let k = read(tokens.next(), 0, 1000)?;
+        lines: &mut Peekable<impl Iterator<Item = &'a str>>,
+    ) -> anyhow::Result<(Option<Self>, Vec<String>)> {
+        let mut comments: Vec<String> = Vec::new();
+        for line in lines {
+            if line.starts_with('#') {
+                comments.push(line.to_string());
+            } else {
+                let mut tokens = line.split_whitespace().peekable();
+                let k = read(tokens.next(), 0, 1000)?;
+
+                return Ok((Some(Self { k }), comments));
+            }
+        }
 
         // todo!("Write code to parse Output here.");
-
-        Ok(Self { k })
+        Ok((None, comments))
     }
 
     /// **(CUSTOMIZE IT!)** Calculate score

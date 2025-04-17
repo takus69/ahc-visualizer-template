@@ -11,4 +11,6 @@ export type VisualizerResult = {
   err: string;
   score: number;
   cmd: string;
+  before_comment: string;
+  after_comment: string;
 };

@@ -18,6 +18,8 @@ pub struct VisResult {
     pub score: i64,
     pub svg: Document,
     pub cmd: String,
+    pub before_comment: String,
+    pub after_comment: String,
 }
 
 const VIEW_SIZE: f64 = 600.0;
@@ -27,13 +29,14 @@ const VIEW_PADDING: f64 = 10.0;
 pub(super) fn visualize(
     input: &Input,
     outputs: &[Output],
+    comments: &[String],
     option: Option<VisOption>,
 ) -> anyhow::Result<VisResult> {
     let option = option.unwrap_or(VisOption {
         turn: outputs.len(),
     });
 
-    let mut doc = init_svg(VIEW_SIZE*2.0, VIEW_SIZE, VIEW_PADDING);
+    let mut doc = init_svg(VIEW_SIZE, VIEW_SIZE, VIEW_PADDING);
 
     // Draw Input
     fn drow(doc: Document, input: &Input, output: Option<&Output>) -> Document {
@@ -63,10 +66,12 @@ pub(super) fn visualize(
 
     // Draw Output
     if option.turn == 0 {
-        return Ok(VisResult { score: 0, svg: doc, cmd: String::new() });
+        return Ok(VisResult { score: 0, svg: doc, cmd: String::new(), before_comment: String::new(), after_comment: String::new() });
     }
 
     let output = &outputs[option.turn-1];
+    let before_comment = comments[option.turn-1].clone();
+    let after_comment = if comments.len() > option.turn { comments[option.turn].clone() } else { String::new() };
     doc = drow(doc, input, Some(output));
 
     let score = output.calc_score(input)?;
@@ -84,5 +89,5 @@ pub(super) fn visualize(
     // テキスト
     doc = doc.add(create_text(x, 10.0, 20.0,format!("{}", output.k)));
 
-    Ok(VisResult { score, svg: doc, cmd: output.to_string() })
+    Ok(VisResult { score, svg: doc, cmd: output.to_string(), before_comment, after_comment })
 }

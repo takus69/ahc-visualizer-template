@@ -14,6 +14,8 @@ pub struct Ret {
     pub err: String,
     pub svg: String,
     pub cmd: String,
+    pub before_comment: String,
+    pub after_comment: String,
 }
 
 #[wasm_bindgen]
@@ -26,20 +28,24 @@ pub fn vis(input: String, output: String, turn: usize) -> Ret {
             err: format!("{:#}", err),
             svg: "".to_string(),
             cmd: "".to_string(),
+            before_comment: "".to_string(),
+            after_comment: "".to_string(),
         },
     }
 }
 
 fn try_vis(input: &str, output: &str, option: VisOption) -> anyhow::Result<Ret> {
     let input = parse_input(&input)?;
-    let outputs = parse_outputs(&input, &output)?;
-    let vis_result = visualize(&input, &outputs, Some(option))?;
+    let (outputs, comments) = parse_outputs(&input, &output)?;
+    let vis_result = visualize(&input, &outputs, &comments, Some(option))?;
 
     Ok(Ret {
         score: vis_result.score,
         err: "".to_string(),
         svg: vis_result.svg.to_string(),
         cmd: vis_result.cmd,
+        before_comment: vis_result.before_comment,
+        after_comment: vis_result.after_comment,
     })
 }
 
@@ -50,7 +56,7 @@ pub fn get_max_turn(input: String, output: String) -> usize {
 
 fn try_get_max_turn(input: &str, output: &str) -> anyhow::Result<usize> {
     let input = parse_input(&input)?;
-    let outputs = parse_outputs(&input, &output)?;
+    let (outputs, _) = parse_outputs(&input, &output)?;
 
     Ok(outputs.len())
 }

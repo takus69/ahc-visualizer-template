@@ -24,6 +24,8 @@ const AHCLikeVisualizer: FC = () => {
     err: '',
     score: 0,
     cmd: '',
+    before_comment: '',
+    after_comment: '',
   });
 
   useEffect(() => {
@@ -69,6 +71,8 @@ const AHCLikeVisualizer: FC = () => {
         err: ret.err,
         score: Number(ret.score),
         cmd: ret.cmd,
+        before_comment: ret.before_comment,
+        after_comment: ret.after_comment,
       });
     } catch (e) {
       // visが失敗した場合にはエラーを出力する
@@ -82,6 +86,8 @@ const AHCLikeVisualizer: FC = () => {
         err: msg,
         score: 0,
         cmd: '',
+        before_comment: '',
+        after_comment: '',
       });
     }
   }, [
@@ -110,6 +116,8 @@ const AHCLikeVisualizer: FC = () => {
         err={visualizerResult.err}
         score={visualizerResult.score}
         cmd={visualizerResult.cmd}
+        before_comment={visualizerResult.before_comment}
+        after_comment={visualizerResult.after_comment}
       ></SvgViewer>
     </>
   );
